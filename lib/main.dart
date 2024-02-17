@@ -2,6 +2,7 @@ import 'package:blocms/logic/cubit/counter_cubit.dart';
 import 'package:blocms/presentation/screens/home_screen.dart';
 import 'package:blocms/presentation/screens/second_screen.dart';
 import 'package:blocms/presentation/screens/third_screen.dart';
+import 'package:blocms/router/app_rounter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -20,13 +21,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  final CounterCubit _counterCubit = CounterCubit();
-
-  @override
-  void dispose() {
-    _counterCubit.close();
-    super.dispose();
-  }
+  final AppRounter _appRounter = AppRounter();
 
   @override
   Widget build(BuildContext context) {
@@ -36,29 +31,13 @@ class _MyAppState extends State<MyApp> {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      routes: {
-        '/': (context) => BlocProvider.value(
-              value: _counterCubit,
-              child: const HomeScreen(
-                title: 'HomeScreen',
-                color: Colors.blueAccent,
-              ),
-            ),
-        '/second': (context) => BlocProvider.value(
-              value: _counterCubit,
-              child: const SecondScreen(
-                title: 'SecondScreen',
-                color: Colors.redAccent,
-              ),
-            ),
-        '/third': (context) => BlocProvider.value(
-              value: _counterCubit,
-              child: const ThirdScreen(
-                title: 'ThirdScreen',
-                color: Colors.greenAccent,
-              ),
-            ),
-      },
+      onGenerateRoute: _appRounter.onGeneratedRoute,
     );
+  }
+
+  @override
+  void dispose() {
+    _appRounter.dispose();
+    super.dispose();
   }
 }
