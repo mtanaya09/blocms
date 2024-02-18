@@ -28,7 +28,7 @@ class _SecondScreenState extends State<SecondScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        backgroundColor: widget.color,
         title: Text(widget.title ?? ''),
       ),
       body: Center(
@@ -104,13 +104,6 @@ class _SecondScreenState extends State<SecondScreen> {
             ),
             const SizedBox(
               height: 24,
-            ),
-            MaterialButton(
-              color: widget.color,
-              onPressed: () {
-                Navigator.of(context).pushNamed('/third');
-              },
-              child: const Text('Go to Second Screen'),
             ),
           ],
         ),
